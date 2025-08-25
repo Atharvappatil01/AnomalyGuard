@@ -106,13 +106,6 @@ Ensure compliance with each dataset’s license.
 
 ---
 
-## 🖊️ Author & Provenance
-
-This project was created by **Atharva Prakash Patil (2025)** as an independent educational resource.  
-Markdown explanations, notebook names, and folder structure have been **rewritten for originality**.  
-
----
-
 ## 📜 License
 
 Released under the **MIT License** (or another open-source license of your choice).  

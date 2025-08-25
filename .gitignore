@@ -1,0 +1,18 @@
+# Python & Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+env/
+venv/
+# Data
+data/
+datasets/
+*.csv
+*.tsv
+*.parquet
+*.npz
+*.npy
+# OS
+.DS_Store
+Thumbs.db

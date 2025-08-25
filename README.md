@@ -1,39 +1,68 @@
-# 🔒 AnomalyGuard: Self-/Unsupervised Anomaly Detection for IoT & Networks
+# 🔒 AnomalyGuard — Self-/Unsupervised Anomaly Detection for IoT & Networks
 
-**AnomalyGuard** is a research-friendly collection of Jupyter notebooks that compare **self-supervised** and **unsupervised** anomaly detection baselines across multiple datasets (edge, MQTT, UNSW, WUSTL, X-IIoT, etc.).  
+**AnomalyGuard** is a research-friendly collection of Jupyter notebooks comparing **self‑supervised** and **unsupervised** anomaly detection methods across multiple traffic and sensor datasets (e.g., edge, MQTT, UNSW, WUSTL, X‑IIoT).
 It provides clear, reproducible workflows for training, evaluation, and qualitative analysis.
 
-> This repository is an independent, educational rework and extension. All wording, structure, and explanations have been rewritten for clarity and originality.
+> This repository is an independent, educational adaptation and rewrite. Markdown explanations and comments have been refreshed; minor structural edits improve readability and reproducibility.
+
+---
+
+## 📁 Repository Layout (updated)
+
+```
+AnomalyGuard/                       # Reworked SAFE notebooks
+  ├─ AnomalyGuard_Detection.ipynb   # End‑to‑end detection workflow
+  └─ AnomalyGuard_MAE.ipynb         # Masked autoencoder representation learning
+
+SSL_Benchmarks/                     # Self‑supervised & deep one‑class baselines
+  ├─ DeepOD_edge.ipynb
+  ├─ DeepOD_mqtt.ipynb
+  ├─ DeepOD_unsw.ipynb
+  ├─ DeepOD_wustl.ipynb
+  ├─ DeepOD_xiiot.ipynb
+  ├─ MAE_xiiot.ipynb
+  └─ VAE_xiiot.ipynb
+
+Unsupervised_Benchmarks/            # Classical & modern unsupervised methods
+  ├─ edge-unsupervised.ipynb
+  ├─ mqtt-unsupervised.ipynb
+  ├─ unsw-unsupervised.ipynb
+  ├─ wustl-unsupervised.ipynb
+  └─ x-iiot-unsupervised.ipynb
+
+requirements.txt
+README.md
+.gitignore
+```
 
 ---
 
 ## 🧭 What’s Inside
 
-- **SAFE Notebooks (Reworked)**  
-  - `SAFE_Detection.ipynb`: end-to-end detection workflow, metrics, and reporting  
-  - `SAFE_MAE.ipynb`: masked autoencoding approach for representation learning
+- **AnomalyGuard notebooks (reworked):**
+  - `AnomalyGuard_Detection.ipynb` — complete pipeline, metrics and reporting
+  - `AnomalyGuard_MAE.ipynb` — MAE pretext task for robust embeddings
 
-- **Self-Supervised Baselines (SSL)**  
-  - `DeepOD_*.ipynb`: deep one-class variants over multiple datasets  
-  - `MAE_xiiot.ipynb`, `VAE_xiiot.ipynb`: generative pretext tasks for robust embeddings
+- **Self‑Supervised baselines (`SSL_Benchmarks/`):**
+  - Deep one‑class variants and generative approaches (DeepOD, MAE, VAE)
 
-- **Unsupervised Baselines**  
-  - `*-unsupervised.ipynb`: classic and modern unsupervised methods (per dataset)
+- **Unsupervised baselines (`Unsupervised_Benchmarks/`):**
+  - Classical clustering / density / reconstruction methods per dataset
 
-Each notebook now includes a short **provenance header** and **refreshed markdown** to improve readability and reduce duplication from prior art.
+Each notebook begins with a **provenance header** and refreshed markdown to clarify intent and workflow.
 
 ---
 
-## 📦 Environment & Setup
+## ⚙️ Environment & Setup
 
-Create a fresh Python environment (3.10+ recommended) and install typical packages:
+Create a fresh environment (Python 3.10+ recommended) and install requirements:
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+source .venv/bin/activate            # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-You can start with a minimal `requirements.txt` (tweak as needed):
+Minimal `requirements.txt` (extend as needed):
 ```txt
 jupyter
 numpy
@@ -44,64 +73,59 @@ seaborn
 torch
 torchvision
 tqdm
-```
-> Some notebooks may require additional packages (e.g., `pyod`, `einops`); install them as prompted.
-
----
-
-## 📁 Suggested Structure
-
-```
-AnomalyGuard/
-├─ notebooks/
-│  ├─ SAFE_Detection.ipynb
-│  ├─ SAFE_MAE.ipynb
-│  ├─ SSL-baselines/
-│  │  ├─ DeepOD_edge.ipynb
-│  │  ├─ DeepOD_mqtt.ipynb
-│  │  └─ ...
-│  └─ unsupervised/
-│     ├─ edge-unsupervised.ipynb
-│     ├─ mqtt-unsupervised.ipynb
-│     └─ ...
-├─ data/                 # (place datasets here or mount paths)
-├─ requirements.txt
-└─ README.md
+pyod
+einops
 ```
 
-> This repository keeps the original layout for convenience, but feel free to reorganize using the structure above.
+> Some notebooks may require extra packages depending on your CUDA/CPU setup.
 
 ---
 
 ## ▶️ How to Run
 
 1. Launch Jupyter:
-```bash
-jupyter notebook
-```
-2. Open the notebook for your target dataset (e.g., `SSL-baselines/DeepOD_edge.ipynb`).  
-3. Run cells top-to-bottom. See the introduction cell for configuration tips.
+   ```bash
+   jupyter notebook
+   ```
+2. Open a target notebook (e.g., `AnomalyGuard/AnomalyGuard_Detection.ipynb`).
+3. Run cells top‑to‑bottom. Refer to the intro cell for configuration notes.
 
 ---
 
-## 📊 Results & Reporting
+## 📊 Metrics & Reporting
 
-Every notebook prints common metrics (e.g., AUROC, F1, precision/recall) and includes plots to compare models.  
-You’re encouraged to export results (CSV) and figures (PNG/PDF) for downstream analysis and paper-ready charts.
+- Common metrics (AUROC, F1, precision/recall) printed per run.
+- Save tables/figures as CSV/PNG for downstream comparison and paper‑ready charts.
+
+**Results template (example):**
+
+| Dataset | Method   | AUROC | F1   | Notes |
+|--------:|----------|------:|-----:|------|
+| edge    | DeepOD   | 0.94  | 0.88 | default params |
+| mqtt    | MAE      | 0.91  | 0.85 | lr=1e-4 |
+| unsw    | VAE      | 0.89  | 0.83 | tuned epochs |
+
+---
+
+## 🗂 Datasets
+
+Place datasets under a local `data/` folder or update paths inside notebooks to your environment.  
+Please follow each dataset’s license/terms of use.
 
 ---
 
 ## 🔍 Provenance
 
-This repository is an **independent adaptation** and **original rewrite** of educational materials in this area.  
-- Introductory markdown, code comments, variable naming, and logging have been rewritten for clarity.  
-- A **provenance header** has been added to each notebook indicating this adaptation and date.
+This repository is an **independent adaptation** in which:
+- Markdown cells and comments were rewritten in my own words.
+- Minor structural edits and logging were added for clarity.
+- Notebook names and folders were **renamed** to reflect the new project identity.
+
+**Adaptation date:** 2025-08-25  
+**Author:** Atharva Prakash Patil
 
 ---
 
 ## 📜 License & Citation
 
-If you build on this work, please cite this repository and any upstream datasets or papers you use.
-
-**Author:** Atharva Prakash Patil  
-**Year:** 2025
+Choose a license appropriate to your use (e.g., MIT/Apache‑2.0) and cite any upstream datasets/papers you build upon.
